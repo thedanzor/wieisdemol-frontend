@@ -27,8 +27,8 @@ const PlayerWrapper = styled.div`
 
   .col2 {
     width: 120px;
-    padding: 16px 0;
-    font-size: 23px;
+    padding: 18px 0;
+    font-size: 20px;
     font-weight: 600;
     padding-left: 18px;
     font-weight: 600;
