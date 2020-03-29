@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 // Logo
@@ -6,6 +6,7 @@ import Logo from '../ui/assests/logo.png'
 
 // Childeren
 import Player from './player'
+import PlaceBet from './place-bets'
 
 // Data
 import data from '../mock/list'
@@ -76,6 +77,8 @@ const ListWrapper = styled.div`
 `
 
 const ListComponent = ({ auth }) => {
+  const [open, setOpen] = useState(false)
+
   return <ListWrapper>
     <div>
       <h1> Welcome back <span> {auth.name} </span> </h1>
@@ -83,7 +86,11 @@ const ListComponent = ({ auth }) => {
       <img src={Logo} alt='logo' className='logo-wrapper' />
       { data.map(player => <Player key={player.name} player={player} />) }
 
-      <button> Update your weekly bet </button>
+      <button onClick={() => setOpen(true)}> Update your weekly bet </button>
+
+      {
+        open && <PlaceBet auth={auth} handleClose={() => setOpen(false)} />
+      }
     </div>
   </ListWrapper>
 }
