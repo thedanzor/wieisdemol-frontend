@@ -26,7 +26,7 @@ const ListWrapper = styled.div`
   }
 
   h1 {
-    font-size: 45px;
+    font-size: 35px;
     margin: 0;
     padding: 0;
     color: rgba(255,255,255,0.6);
@@ -37,7 +37,7 @@ const ListWrapper = styled.div`
     }
   }
   h3 {
-    font-size: 18px;
+    font-size: 16px;
     opacity: 0.8;
     margin: 12px;
     padding: 0;
@@ -82,11 +82,11 @@ const ListComponent = ({ auth }) => {
   return <ListWrapper>
     <div>
       <h1> Welcome back <span> {auth.name} </span> </h1>
-      <h3> You currently have <span> ${auth.points || 100} </span> points to spend </h3>
+      <h3> You currently have <span> {auth.points || 100} </span> points to spend </h3>
       <img src={Logo} alt='logo' className='logo-wrapper' />
       { data.map(player => <Player key={player.name} player={player} />) }
 
-      <button onClick={() => setOpen(true)}> Update your weekly bet </button>
+      <button onClick={() => setOpen(true)}> Update your weekly points </button>
 
       {
         open && <PlaceBet auth={auth} handleClose={() => setOpen(false)} />

@@ -37,7 +37,7 @@ const AvatarWrapper = styled.div`
   overflow: hidden;
 
   > img {
-    width: ${props => `${props.avatarsize}px`};
+    width: 100%;
   }
 `
 

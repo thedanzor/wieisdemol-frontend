@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import logo from '../ui/assests/logo.png'
 
+import data from '../mock/list.js'
+
 const LoginWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -21,12 +23,13 @@ const LoginWrapper = styled.div`
   }
 
   h1 {
-    font-size: 45px;
-    margin: 0;
+    font-size: 35px;
+    margin: 12px 0 0 0;
     padding: 0;
   }
+
   h3 {
-    font-size: 18px;
+    font-size: 16px;
     opacity: 0.8;
     margin: 12px;
     padding: 0;
@@ -79,13 +82,15 @@ const LoginWrapper = styled.div`
   }
 `
 
-const LoginComponent = ({ auth, setAuth }) => {
+const LoginComponent = ({ setAuth }) => {
   const [value, setValue] = useState('')
 
   const handleAuth = () => {
-    setAuth({
-      name: value
-    })
+    const dataObj = data.filter(item => item.name === value)
+
+    if (dataObj && dataObj[0] && dataObj[0].name) {
+      setAuth(dataObj[0])
+    }
   }
 
   return <LoginWrapper>

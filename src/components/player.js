@@ -41,6 +41,7 @@ const PlayerWrapper = styled.div`
     padding: 20px 0;
     font-weight: 600;
     opacity: 0.7;
+    text-align: center;
   }
 
   .col4 {
@@ -57,7 +58,7 @@ const ListComponent = ({ player }) => {
     <div className='player_wrapper'>
       <div className='col col1'> <ResolveAvatar name={mostSuspected} size={size} /> </div>
       <div className='col col2'> { name } </div>
-      <div className='col col3'> ${ points } </div>
+      <div className='col col3'> { points } </div>
       <div className='col col4'> { bettedOn.map(player => <ResolveAvatar key={`${name}.${player}`} name={player} size={45} />)} </div>
     </div>
   </PlayerWrapper>
