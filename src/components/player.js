@@ -28,9 +28,11 @@ const PlayerWrapper = styled.div`
   .col2 {
     width: 120px;
     padding: 16px 0;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 600;
-    padding-left: 22px;
+    padding-left: 18px;
+    font-weight: 600;
+    font-family: 'Sen', sans-serif;
   }
 
   .col3 {

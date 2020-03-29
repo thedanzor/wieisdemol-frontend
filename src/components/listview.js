@@ -40,6 +40,10 @@ const ListWrapper = styled.div`
     opacity: 0.8;
     margin: 12px;
     padding: 0;
+
+    span {
+      color: #fff;
+    }
   }
 
   .logo-wrapper {
@@ -75,7 +79,7 @@ const ListComponent = ({ auth }) => {
   return <ListWrapper>
     <div>
       <h1> Welcome back <span> {auth.name} </span> </h1>
-      <h3> You currently ${auth.points || 100} points to spend </h3>
+      <h3> You currently have <span> ${auth.points || 100} </span> points to spend </h3>
       <img src={Logo} alt='logo' className='logo-wrapper' />
       { data.map(player => <Player key={player.name} player={player} />) }
 
