@@ -12,13 +12,13 @@ const Wrapper = styled.div`
   height: 100%;
 
   .child {
-    width: 600px;
+    width: 900px;
     height: 650px;
     padding: 22px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -325px 0 0 -300px;
+    margin: -325px 0 0 -450px;
     background: #2a342b;
     box-shadow: 0px 12px 22px rgba(0,0,0,0.6);
   }
@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   }
 
   .option {
-    width: 25%;
+    width: 20%;
     display: inline-block;
     height: 160px;
     vertical-align: top;

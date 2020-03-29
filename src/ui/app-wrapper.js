@@ -11,7 +11,10 @@ const Wrapper = styled.div`
   font-family: 'Roboto Condensed', sans-serif;
   color: rgba(255,255,255,0.7);
 
-  ${'' /* @keyframes imageEffect {
+  ${
+    props => props.isLogin
+      ? `
+  @keyframes imageEffect {
     0% {
       opacity: 0.4;
       -webkit-filter: blur(100px);
@@ -22,12 +25,15 @@ const Wrapper = styled.div`
       -webkit-filter: blur(50px);
       filter: blur(50px);
     }
-    100% {
+    100%  {
       opacity: 0.4;
       -webkit-filter: blur(100px);
       filter: blur(100px);
     }
-  } */}
+  }
+      `
+      : ``
+  }
 
   > img {
     width: 100%;
@@ -35,9 +41,23 @@ const Wrapper = styled.div`
     opacity: 0.4;
     -webkit-filter: blur(100px);
     filter: blur(100px);
-    ${'' /* animation-name: imageEffect;
+  }
+
+  ${
+    props => props.isLogin
+      ? `
+  > img {
+    animation-name: imageEffect;
+    animation-duration: 8s;
     animation-iteration-count: infinite;
-    animation-duration: 8s; */}
+  }
+      `
+      : `
+  > img {
+    -webkit-filter: blur(100px);
+    filter: blur(100px);
+  }
+      `
   }
 
   .container {
@@ -53,8 +73,8 @@ const Wrapper = styled.div`
   }
 `
 
-export default ({ children }) => {
-  return <Wrapper>
+export default ({ children, isLogin }) => {
+  return <Wrapper isLogin={isLogin}>
     <img alt='background' src={background} />
     <div className='container'>
       {children}

@@ -10,7 +10,7 @@ import ListView from './components/listview'
 function App() {
   const [auth, setAuth] = useState(null)
 
-  return <Wrapper>
+  return <Wrapper isLogin={auth === null}>
     { auth === null && <Login auth={auth} setAuth={setAuth} /> }
 
     { auth !== null && <ListView auth={auth} /> }
