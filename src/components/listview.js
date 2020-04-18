@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+// helpers
+import { get } from '../helpers/fetch'
+
 // Logo
 import Logo from '../ui/assests/logo.png'
 
 // Childeren
-import Player from './player'
+import BetContainer from './listitem'
 import PlaceBet from './place-bets'
+import Loader from '../ui/loader'
+import MolesFound from './moles-found'
 
 // Data
-import data from '../mock/list'
+// import data from '../mock/list'
 
 const ListWrapper = styled.div`
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   text-align: center;
   overflow: hidden;
   overflow-y: scroll;
@@ -74,22 +80,101 @@ const ListWrapper = styled.div`
       outline: 0px solid #fff;
     }
   }
+
+  .loader-wrapper {
+    position: relative;
+    min-height: 150px;
+  }
+
+  .action-element-wraper {
+    padding: 12px 0 0 0;
+
+    .action-element {
+      cursor: pointer;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding: 12px 44px;
+      color: #fff;
+
+      &:hover {
+        color: #066200;
+      }
+    }
+  }
+
+  .bets-placed {
+    width: 35%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .giant-episode-cards {
+    width: 65%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .mainscreen-container {
+    padding: 42px 0;
+  }
 `
 
-const ListComponent = ({ auth }) => {
+const ListComponent = ({ auth, general, players, refetchUser }) => {
   const [open, setOpen] = useState(false)
+  const [processing, setProcessing] = useState(true)
+  const [bets, setBets] = useState([])
+
+  const updateData = async () => {
+    setProcessing(true)
+
+    const response = await fetch(`http://localhost:3030/bets`, get)
+    const bets = await response.json()
+
+    const sortedBets = bets.sort((a, b) => b.week - a.week)
+
+    setBets(sortedBets)
+    setProcessing(false)
+  }
+
+  React.useEffect(() => {
+    updateData()
+  }, [])
 
   return <ListWrapper>
     <div>
       <h1> Welcome back <span> {auth.name} </span> </h1>
-      <h3> You currently have <span> {auth.points || 100} </span> points to spend </h3>
+      <h3> You currently have <span> {auth.points - auth.spent} </span> points to spend this episode </h3>
       <img src={Logo} alt='logo' className='logo-wrapper' />
-      { data.map(player => <Player key={player.name} player={player} />) }
 
-      <button onClick={() => setOpen(true)}> Update your weekly points </button>
+      <p className='action-element-wraper'> 
+        <strong onClick={updateData} className='action-element'> Fetch the latest data </strong> |
+        <strong onClick={() => setOpen(true)} className='action-element'> Spend your points </strong>
+      </p>
+
+      <div className='mainscreen-container'>
+        <div className='bets-placed'>
+          {
+            processing
+              ? <div className='loader-wrapper'> <Loader /> </div>
+              : bets && bets.length > 0
+                ? <BetContainer players={players} betWeek={bets[0]} />
+                : 'No data found'
+          }
+        </div>
+        <div className='giant-episode-cards'>
+          <MolesFound general={general} />
+        </div>
+      </div>
 
       {
-        open && <PlaceBet auth={auth} handleClose={() => setOpen(false)} />
+        open && <PlaceBet 
+          fetchNew={() => {
+            updateData()
+            refetchUser()
+          }}
+          general={general}
+          bets={bets[0]}
+          auth={auth}
+          handleClose={() => setOpen(false)} />
       }
     </div>
   </ListWrapper>

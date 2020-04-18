@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import ResolveAvatar from '../helpers/resolve-avatar'
+import { post } from '../helpers/fetch'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -71,43 +72,72 @@ const Wrapper = styled.div`
     }
   }
 
+  .executed {
+    opacity: 0.4;
+  }
+
   .options {
     margin-top: 40px;
   }
 `
 
-const contestents = [
-  'bella', 'emilio', 'jan', 'jean', 'loes', 'olcay', 'ron', 'ruben', 'simone', 'stine'
-]
-
-export default ({ auth, handleClose }) => {
-  const [mappedData, setMappedData] = React.useState(auth.bets)
+export default ({ auth, handleClose, bets, general, fetchNew }) => {
+  const [mappedData, setMappedData] = React.useState(bets[auth.name] || {})
+  const { cast, executions, currentWeek } = general
+  const [spent, setSpent] = React.useState(0)
+  const saveButton = (auth.points - spent) === 0
 
   const handleChange = (value, name) => {
-    const newData = { ...mappedData }
-    newData[name] = value
+    const currentData = mappedData || {}
+    const newData = { ...currentData }
+    newData[name] = parseInt(value)
 
     setMappedData(newData)
   }
 
+  const handleSave = async () => {
+    const response = await fetch(`http://localhost:3030/bets/${currentWeek}/${auth.name}`, post(mappedData))
+    const responseMessage = await response.json()
+
+    if (responseMessage) {
+      fetchNew()
+    }
+  }
+
+  React.useEffect(() => {
+    let totalPoints = 0
+    for (let bet in mappedData) {
+      if (mappedData[bet]) {
+        totalPoints = totalPoints + mappedData[bet]
+      }
+    }
+
+    setSpent(totalPoints)
+  }, [mappedData])
+
   return <Wrapper>
     <div className='child'>
-      <h1 onClick={handleClose}> Who is the mole? </h1>
-      <h3> Spend your points on who you think the mole is </h3>
+      <h1 onClick={handleClose}> Wie is de mol? </h1>
+      <h3> Spend your points on your mole suspects. </h3>
 
       <div className='score-board'>
-        You have ${auth.points - auth.spent} points to spend.
+        You have <strong> {auth.points - spent} </strong> points to spend.
       </div>
 
       <div className='options'>
-        {contestents.map(person => <div key={`list.${person}`} className='option'>
+        {cast
+          .map(person => <div key={`list.${person}`} className={`option ${executions.indexOf(person) > -1 ? 'executed' : ''}`}>
           <ResolveAvatar name={person} size={70} />
           <span>
             {person}
-            <input type='number' value={mappedData[person] || 0} onChange={e => handleChange(e.target.value, person)} />
+            <input disabled={executions.indexOf(person) > -1} type='number' value={mappedData[person] || 0} onChange={e => handleChange(e.target.value, person)} />
           </span> 
         </div>)}
       </div>
+
+      {
+        saveButton && <button onClick={handleSave}> Save </button>
+      }
     </div>
   </Wrapper>
 }

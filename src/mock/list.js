@@ -6,11 +6,7 @@ export default [
     spent: 0,
     mostSuspected: 'loes',
     bettedOn: ['loes', 'jan', 'ruben'],
-    bets: {
-      loes: 40,
-      jan: 40,
-      ruben: 20
-    }
+    bets: {}
   },
   {
     name: 'Scott',
@@ -19,11 +15,7 @@ export default [
     spent: 0,
     mostSuspected: 'loes',
     bettedOn: ['loes', 'jan', 'ruben'],
-    bets: {
-      loes: 40,
-      jan: 40,
-      ruben: 20
-    }
+    bets: {}
   },
   {
     name: 'Erinn',
@@ -32,11 +24,7 @@ export default [
     spent: 0,
     mostSuspected: 'loes',
     bettedOn: ['loes', 'jan', 'ruben'],
-    bets: {
-      loes: 40,
-      jan: 40,
-      ruben: 20
-    }
+    bets: {}
   },
   {
     name: 'Eleanor',
@@ -45,10 +33,6 @@ export default [
     spent: 0,
     mostSuspected: 'loes',
     bettedOn: ['loes', 'jan', 'ruben'],
-    bets: {
-      loes: 40,
-      jan: 40,
-      ruben: 20
-    }
+    bets: {}
   }
 ]

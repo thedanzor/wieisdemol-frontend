@@ -14,7 +14,7 @@ import loes from './assets/loes.jpg'
 import ron from './assets/ron.jpg'
 
 // Map
-const map = {
+export const map = {
   stine,
   emilio,
   simone,
@@ -41,10 +41,10 @@ const AvatarWrapper = styled.div`
   }
 `
 
-export default ({ name, size }) => {
+export default ({ name, size, handleClick }) => {
   const img = map[name]
 
-  return <AvatarWrapper avatarsize={size}>
-    <img alt={name} src={img} />
+  return <AvatarWrapper avatarsize={size} className='user-wrapper-image'>
+    <img onClick={handleClick} alt={name} src={img} />
   </AvatarWrapper>
 }

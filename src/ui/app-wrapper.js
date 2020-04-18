@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import background from './assests/bg.jpg'
+import background from './assests/bg.png'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -17,18 +17,12 @@ const Wrapper = styled.div`
   @keyframes imageEffect {
     0% {
       opacity: 0.4;
-      -webkit-filter: blur(100px);
-      filter: blur(100px);
     }
     50%  {
-      opacity: 0.5;
-      -webkit-filter: blur(50px);
-      filter: blur(50px);
+      opacity: 0.9;
     }
     100%  {
       opacity: 0.4;
-      -webkit-filter: blur(100px);
-      filter: blur(100px);
     }
   }
       `
@@ -39,8 +33,6 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     opacity: 0.4;
-    -webkit-filter: blur(100px);
-    filter: blur(100px);
   }
 
   ${
@@ -52,12 +44,7 @@ const Wrapper = styled.div`
     animation-iteration-count: infinite;
   }
       `
-      : `
-  > img {
-    -webkit-filter: blur(100px);
-    filter: blur(100px);
-  }
-      `
+      : ``
   }
 
   .container {
