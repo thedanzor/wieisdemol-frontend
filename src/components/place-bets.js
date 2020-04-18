@@ -96,7 +96,7 @@ export default ({ auth, handleClose, bets, general, fetchNew }) => {
   }
 
   const handleSave = async () => {
-    const response = await fetch(`http://localhost:3030/bets/${currentWeek}/${auth.name}`, post(mappedData))
+    const response = await fetch(`https://wieisdemol-node-backend.herokuapp.com/bets/${currentWeek}/${auth.name}`, post(mappedData))
     const responseMessage = await response.json()
 
     if (responseMessage) {

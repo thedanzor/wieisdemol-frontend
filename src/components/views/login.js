@@ -145,7 +145,7 @@ export default ({ account, setAuth, general }) => {
     setProcessing(true)
   
     // Do the post request
-    const response = await fetch(`http://localhost:3030/update/${account.username}`, post({
+    const response = await fetch(`https://wieisdemol-node-backend.herokuapp.com/update/${account.username}`, post({
       ...accountDetails,
       setup: true
     }))

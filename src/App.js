@@ -14,7 +14,7 @@ function App() {
   const [state, setState] = useState({ ready: false })
 
   const getAppData = async () => {
-    const response = await fetch('http://localhost:3030/status', get)
+    const response = await fetch('https://wieisdemol-node-backend.herokuapp.com/status', get)
     const { bets, general, players } = await response.json()
 
     setState({

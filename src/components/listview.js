@@ -126,7 +126,7 @@ const ListComponent = ({ auth, general, players, refetchUser }) => {
   const updateData = async () => {
     setProcessing(true)
 
-    const response = await fetch(`http://localhost:3030/bets`, get)
+    const response = await fetch(`https://wieisdemol-node-backend.herokuapp.com/bets`, get)
     const bets = await response.json()
 
     const sortedBets = bets.sort((a, b) => b.week - a.week)

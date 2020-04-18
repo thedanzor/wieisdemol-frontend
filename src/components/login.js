@@ -97,7 +97,7 @@ const LoginComponent = ({ setAuth, general }) => {
 
   const handleAuth = async () => {
     setLoading(true)
-    const response = await fetch(`http://localhost:3030/login/${value}`, get)
+    const response = await fetch(`https://wieisdemol-node-backend.herokuapp.com/login/${value}`, get)
     const account = await response.json()
 
     if (account && account.name && account.setup) {
