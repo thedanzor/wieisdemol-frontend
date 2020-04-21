@@ -1,9 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import ResolveAvatar from '../../helpers/resolve-avatar'
 import SwipeableViews from 'react-swipeable-views'
-import { post } from '../../helpers/fetch'
+
+// Core modules
+import ResolveAvatar from '../../core/helpers/resolve-avatar'
+import { post } from '../../core/helpers/fetch'
+import { H1, H3 } from '../../core/views/typography'
+import { PrimaryButton } from '../../core/views/buttons'
+import { InputField } from '../../core/views/inputs'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -30,19 +34,6 @@ const Wrapper = styled.div`
     }
   }
 
-  h1 {
-    font-size: 45px;
-    margin: 0;
-    padding: 0;
-    color: #fff !important;
-  }
-  h3 {
-    font-size: 18px;
-    opacity: 0.8;
-    margin: 12px;
-    padding: 0;
-  }
-
   .option {
     width: 20%;
     display: inline-block;
@@ -62,19 +53,10 @@ const Wrapper = styled.div`
     }
 
     input {
-      border: 0;
-      outline: 0;
-      background: rgba(0,0,0,0.5);
       padding: 10px;
-      color: #fff;
-      font-size: 16px;
       width: 90%;
       margin: 8px auto 0;
       text-align: center;
-      
-      &:focus, &:hover {
-        outline: 2px solid #086a01;
-      }
     }
   }
 
@@ -163,7 +145,7 @@ export default ({ account, setAuth, general }) => {
 
   return <Wrapper>
     <div className='child'>
-      <h1> Welcome {accountDetails.name} </h1> <br />
+      <H1> Welcome {accountDetails.name} </H1> <br />
 
       <strong> This is the first time you are logging in. Let's finish setting up your account. </strong> 
       <br /><br /><br />
@@ -172,7 +154,7 @@ export default ({ account, setAuth, general }) => {
 
       <SwipeableViews index={index} onChangeIndex={(newIndex) => setIndex(newIndex)}>
         <div style={Object.assign({}, styles.slide)}>
-          <h3> Wie is jouw mol? Select an avatar to use. </h3>
+          <H3> Wie is jouw mol? Select an avatar to use. </H3>
 
           <div className='users-preview'>
           { cast && cast.map(person => <ResolveAvatar handleClick={() => handleAvatarClick(person)} name={person} size={70} />) } <br /><br />
@@ -182,12 +164,12 @@ export default ({ account, setAuth, general }) => {
         </div>
         <div style={Object.assign({}, styles.slide)}>
           <div className='field-input'> Username: </div>
-          <input value={accountDetails.username} onChange={(e) => handleAccountUpdate(e.target.value, 'username')} />
+          <InputField value={accountDetails.username} onChange={(e) => handleAccountUpdate(e.target.value, 'username')} />
 
           <div className='field-input'> Display name: </div>
-          <input value={accountDetails.name} onChange={(e) => handleAccountUpdate(e.target.value, 'name')} />
+          <InputField value={accountDetails.name} onChange={(e) => handleAccountUpdate(e.target.value, 'name')} />
 
-          <button onClick={updateAccount}> { processing ? 'Updating account...' : 'Update Account'} </button>
+          <PrimaryButton onClick={updateAccount}> { processing ? 'Updating account...' : 'Update Account'} </PrimaryButton>
         </div>
       </SwipeableViews>
     </div>

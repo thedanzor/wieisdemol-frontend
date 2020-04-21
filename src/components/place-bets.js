@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ResolveAvatar from '../helpers/resolve-avatar'
-import { post } from '../helpers/fetch'
+import ResolveAvatar from '../core/helpers/resolve-avatar'
+import { post } from '../core/helpers/fetch'
+import { H1, H3 } from '../core/views/typography'
+import { PrimaryButton } from '../core/views/buttons'
+import { InputField } from '../core/views/inputs'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -24,19 +27,6 @@ const Wrapper = styled.div`
     box-shadow: 0px 12px 22px rgba(0,0,0,0.6);
   }
 
-  h1 {
-    font-size: 45px;
-    margin: 0;
-    padding: 0;
-    color: #fff !important;
-  }
-  h3 {
-    font-size: 18px;
-    opacity: 0.8;
-    margin: 12px;
-    padding: 0;
-  }
-
   .option {
     width: 20%;
     display: inline-block;
@@ -53,22 +43,6 @@ const Wrapper = styled.div`
       float: none !important;
       display: block;
       margin: 0 auto;
-    }
-
-    input {
-      border: 0;
-      outline: 0;
-      background: rgba(0,0,0,0.5);
-      padding: 10px;
-      color: #fff;
-      font-size: 16px;
-      width: 90%;
-      margin: 8px auto 0;
-      text-align: center;
-      
-      &:focus, &:hover {
-        outline: 2px solid #086a01;
-      }
     }
   }
 
@@ -117,8 +91,8 @@ export default ({ auth, handleClose, bets, general, fetchNew }) => {
 
   return <Wrapper>
     <div className='child'>
-      <h1 onClick={handleClose}> Wie is de mol? </h1>
-      <h3> Spend your points on your mole suspects. </h3>
+      <H1 onClick={handleClose}> Wie is de mol? </H1>
+      <H3> Spend your points on your mole suspects. </H3>
 
       <div className='score-board'>
         You have <strong> {auth.points - spent} </strong> points to spend.
@@ -130,13 +104,13 @@ export default ({ auth, handleClose, bets, general, fetchNew }) => {
           <ResolveAvatar name={person} size={70} />
           <span>
             {person}
-            <input disabled={executions.indexOf(person) > -1} type='number' value={mappedData[person] || 0} onChange={e => handleChange(e.target.value, person)} />
+            <InputField disabled={executions.indexOf(person) > -1} type='number' value={mappedData[person] || 0} onChange={e => handleChange(e.target.value, person)} />
           </span> 
         </div>)}
       </div>
 
       {
-        saveButton && <button onClick={handleSave}> Save </button>
+        saveButton && <PrimaryButton onClick={handleSave}> Save </PrimaryButton>
       }
     </div>
   </Wrapper>

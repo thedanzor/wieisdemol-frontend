@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { H3 } from '../core/views/typography'
+
 // import Player from './player'
-import ResolveAvatar from '../helpers/resolve-avatar'
+import ResolveAvatar from '../core/helpers/resolve-avatar'
 
 const BetWrapper = styled.div`
   width: 100%;
@@ -21,8 +23,6 @@ const BetWrapper = styled.div`
     }
 
     h3, h4, h5 {
-      padding: 0;
-      margin: 0;
       line-height: 62px;
     }
 
@@ -92,18 +92,17 @@ const ListComponent = ({ players, betWeek }) => {
   })
 
   return <BetWrapper>
-    <h3> Episode {week} </h3>
+    <H3> Episode {week} </H3>
     
     {
       weeklyBet.map(mappedPlayer => <div className='bet-weekly-wrapper'>
         <div className='player-name'> <h3> {mappedPlayer.name} </h3> </div>
         <div className='player-points'> <h4> {mappedPlayer.points} </h4> </div>
         <div className='player-bets'>
-          { console.log(mappedPlayer.bets) }
           {
             mappedPlayer.noBets
               ? 'No points spent'
-              : mappedPlayer.bets.map(contestent => <ResolveAvatar name={contestent.name} size={50} />)
+              : mappedPlayer.bets.map(contestent => <ResolveAvatar key={`contestent-${contestent.name}`} name={contestent.name} size={50} />)
           }
         </div>
       </div>)

@@ -2,16 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 
 // Images
-import stine from './assets/stine.jpg'
-import emilio from './assets/emilio.jpg'
-import simone from './assets/simone.jpg'
-import jan from './assets/jan.jpg'
-import olcay from './assets/olcay.jpg'
-import bella from './assets/bella.jpg'
-import jean from './assets/jean.jpg'
-import ruben from './assets/ruben.jpg'
-import loes from './assets/loes.jpg'
-import ron from './assets/ron.jpg'
+import stine from '../assets/season_18/stine.jpg'
+import emilio from '../assets/season_18/emilio.jpg'
+import simone from '../assets/season_18/simone.jpg'
+import jan from '../assets/season_18/jan.jpg'
+import olcay from '../assets/season_18/olcay.jpg'
+import bella from '../assets/season_18/bella.jpg'
+import jean from '../assets/season_18/jean.jpg'
+import ruben from '../assets/season_18/ruben.jpg'
+import loes from '../assets/season_18/loes.jpg'
+import ron from '../assets/season_18/ron.jpg'
 
 // Map
 export const map = {

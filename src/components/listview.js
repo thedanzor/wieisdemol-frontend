@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 // helpers
-import { get } from '../helpers/fetch'
+import { get } from '../core/helpers/fetch'
 
 // Logo
-import Logo from '../ui/assests/logo.png'
+import Logo from '../core/views/assests/logo.png'
+
+// Views
+import { H1, H3 } from '../core/views/typography'
 
 // Childeren
 import BetContainer from './listitem'
 import PlaceBet from './place-bets'
-import Loader from '../ui/loader'
-import MolesFound from './moles-found'
+import Loader from '../core/views/loader'
+import EleminatedPlayers from './eleminated-players'
 
 // Data
 // import data from '../mock/list'
@@ -141,8 +144,8 @@ const ListComponent = ({ auth, general, players, refetchUser }) => {
 
   return <ListWrapper>
     <div>
-      <h1> Welcome back <span> {auth.name} </span> </h1>
-      <h3> You currently have <span> {auth.points - auth.spent} </span> points to spend this episode </h3>
+      <H1> Welcome back <span> {auth.name} </span> </H1>
+      <H3> You currently have <span> {auth.points - auth.spent} </span> points to spend this episode </H3>
       <img src={Logo} alt='logo' className='logo-wrapper' />
 
       <p className='action-element-wraper'> 
@@ -161,7 +164,7 @@ const ListComponent = ({ auth, general, players, refetchUser }) => {
           }
         </div>
         <div className='giant-episode-cards'>
-          <MolesFound general={general} />
+          <EleminatedPlayers general={general} />
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import { get } from './helpers/fetch'
+import { get } from './core/helpers/fetch'
 
 // UI
-import Wrapper from './ui/app-wrapper'
-import Loader from './ui/loader'
+import Wrapper from './core/views/app-wrapper'
+import Loader from './core/views/loader'
 
 // Components
 import Login from './components/login'

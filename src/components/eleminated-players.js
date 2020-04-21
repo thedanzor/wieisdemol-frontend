@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import SwipeableViews from 'react-swipeable-views'
-import { map } from '../helpers/resolve-avatar'
+import { map } from '../core/helpers/resolve-avatar'
+import { H3 } from '../core/views/typography'
 
 // Swipable views
 const styles = {
@@ -55,7 +56,6 @@ const CardContainer = styled.div`
       
       h3, h4 {
         color: #fff;
-        margin: 0;
       }
     }
 
@@ -75,26 +75,37 @@ const CardContainer = styled.div`
 export default ({ general }) => {
   const { executions, cast } = general
   const [index, setIndex] = React.useState((executions.length - 1))
+  const [carasel, setCarasel] = React.useState([])
+  const [sortedExcutions, setsortedExcutions] = React.useState([])
 
-  const sortedExcutions = executions.reverse()
-  const remainingPlayers = cast.filter(castMember => {
-    return sortedExcutions.indexOf(castMember) === -1
-  })
+  React.useEffect(() => {
+    const newlysortedExcutions = executions
+    const remainingPlayers = cast.filter(castMember => {
+      return newlysortedExcutions.indexOf(castMember) === -1
+    })
 
-  const tooDisplay = [
-    ...sortedExcutions,
-    ...remainingPlayers
-  ]
+    const tooDisplay = [
+      ...newlysortedExcutions,
+      ...remainingPlayers
+    ]
+
+    setsortedExcutions(newlysortedExcutions)
+    setCarasel(tooDisplay)
+  }, [cast, executions])
+
+  if (!carasel || carasel.length === 0) {
+    return null
+  }
 
   return <CardContainer>
     <SwipeableViews enableMouseEvents style={{ padding: '0px 380px 0 40px' }} slideStyle={styles.slideContainer} index={index} onChangeIndex={(newIndex) => setIndex(newIndex)}>
       {
-        tooDisplay.map((player, playerIndex) => <div key={`executed-player-${player}`} style={styles.slide}>
+        carasel.map((player, playerIndex) => <div key={`executed-player-${playerIndex}-${player}`} style={styles.slide}>
           <div className={`execution-card ${playerIndex === index ? 'active-card' : ''}`}>
             <img src={map[player]} alt={player} />
 
             <div className={`overlay-info ${sortedExcutions.indexOf(player) >= 0 ? 'executed' : ''}`}>
-              <h3> {player} </h3>
+              <H3> {player} </H3>
               {
                 sortedExcutions.indexOf(player) >=0 && <h4> Episode {playerIndex +1} </h4>
               }
