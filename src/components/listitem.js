@@ -24,6 +24,7 @@ const BetWrapper = styled.div`
 
     h3, h4, h5 {
       line-height: 62px;
+      margin: 0;
     }
 
     .player-name {

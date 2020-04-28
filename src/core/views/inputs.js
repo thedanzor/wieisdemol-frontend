@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 
-export const InputField = styled.input`
+const sharedValues = `
   background: rgba(0,0,0,0.6);
-  padding: 22px 22px;
   margin: 10px;
-  width: 410px;
   font-size: 16px;
   border: 0px solid #000;
   color: rgba(255,255,255,0.7);
@@ -18,4 +16,17 @@ export const InputField = styled.input`
   &:focus {
     outline: 2px solid #086a01;
   }
+`
+
+export const InputField = styled.input`
+  ${sharedValues}
+  width: 410px;
+  padding: 22px;
+`
+
+export const SmallInput = styled.input`
+  ${sharedValues}
+  width: calc(100% - 24px);
+  margin: 12px 12px 0;
+  padding: 12px;
 `

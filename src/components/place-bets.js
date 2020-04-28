@@ -5,7 +5,7 @@ import ResolveAvatar from '../core/helpers/resolve-avatar'
 import { post } from '../core/helpers/fetch'
 import { H1, H3 } from '../core/views/typography'
 import { PrimaryButton } from '../core/views/buttons'
-import { InputField } from '../core/views/inputs'
+import { SmallInput } from '../core/views/inputs'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   .option {
     width: 20%;
     display: inline-block;
-    height: 160px;
+    height: 180px;
     vertical-align: top;
 
     span {
@@ -104,7 +104,7 @@ export default ({ auth, handleClose, bets, general, fetchNew }) => {
           <ResolveAvatar name={person} size={70} />
           <span>
             {person}
-            <InputField disabled={executions.indexOf(person) > -1} type='number' value={mappedData[person] || 0} onChange={e => handleChange(e.target.value, person)} />
+            <SmallInput disabled={executions.indexOf(person) > -1} type='number' value={mappedData[person] || 0} onChange={e => handleChange(e.target.value, person)} />
           </span> 
         </div>)}
       </div>
