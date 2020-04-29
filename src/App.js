@@ -7,7 +7,7 @@ import Loader from './core/views/loader'
 
 // Components
 import Login from './components/login'
-import ListView from './components/listview'
+import MainWrapper from './main-wrapper'
 
 function App() {
   const [auth, setAuth] = useState(null)
@@ -34,11 +34,11 @@ function App() {
   }
 
   // Build the view
-  const MainComponent = () => {
+  const Component = () => {
     return <>
       { auth === null && <Login auth={auth} setAuth={setAuth} general={state.general} /> }
 
-      { auth !== null && <ListView auth={auth} refetchUser={handleRefetch} players={state.players} general={state.general} /> }
+      { auth !== null && <MainWrapper auth={auth} refetchUser={handleRefetch} players={state.players} general={state.general} /> }
     </>
   }
 
@@ -46,7 +46,7 @@ function App() {
     {
       !state.ready
         ? <Loader />
-        : <MainComponent /> 
+        : <Component /> 
     }
   </Wrapper>
 }

@@ -1,39 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import SwipeableViews from 'react-swipeable-views'
+// import SwipeableViews from 'react-swipeable-views'
 import { map } from '../core/helpers/resolve-avatar'
 import { H3 } from '../core/views/typography'
-
-// Swipable views
-const styles = {
-  slide: {
-    padding: 25,
-    minHeight: 550
-  },
-  slideContainer: {
-    padding: '0px 0 0 0'
-  }
-}
 
 // Style
 const CardContainer = styled.div`
   width: 100%;
-  height: 350px;
-  padding-left: 50px;
-  cursor: move; /* fallback if grab cursor is unsupported */
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
 
   .execution-card {
-    width: 100%;
+    width: 180px;
+    display: inline-block;
+    vertical-align: top;
     border-radius: 12px;
     margin:12px;
     overflow: hidden;
-    height: 350px;
+    height: 250px;
     box-shadow: 0px 22px 22px rgba(000,000,000,0.4);
     position: relative;
-    opacity: 0.5;
+    opacity: 0.7;
+    margin: 12px;
 
     .overlay-info {
       position: absolute;
@@ -42,7 +28,7 @@ const CardContainer = styled.div`
       width: 100%;
       height: 100%;
       background: rgba(000,000,000,0.3);
-      padding: 270px 40px;
+      padding: 70px 20px;
       text-align: center;
 
       &.executed {
@@ -50,7 +36,7 @@ const CardContainer = styled.div`
       }
 
       h3 {
-        font-size: 32px;
+        font-size: 28px;
         text-transform: capitalize;
       }
       
@@ -74,7 +60,6 @@ const CardContainer = styled.div`
 // Component
 export default ({ general }) => {
   const { executions, cast } = general
-  const [index, setIndex] = React.useState((executions.length - 1))
   const [carasel, setCarasel] = React.useState([])
   const [sortedExcutions, setsortedExcutions] = React.useState([])
 
@@ -98,22 +83,18 @@ export default ({ general }) => {
   }
 
   return <CardContainer>
-    <SwipeableViews enableMouseEvents style={{ padding: '0px 380px 0 40px' }} slideStyle={styles.slideContainer} index={index} onChangeIndex={(newIndex) => setIndex(newIndex)}>
-      {
-        carasel.map((player, playerIndex) => <div key={`executed-player-${playerIndex}-${player}`} style={styles.slide}>
-          <div className={`execution-card ${playerIndex === index ? 'active-card' : ''}`}>
-            <img src={map[player]} alt={player} />
+    {
+      carasel.map((player, playerIndex) => <div className={`execution-card`}>
+        <img src={map[player]} alt={player} />
 
-            <div className={`overlay-info ${sortedExcutions.indexOf(player) >= 0 ? 'executed' : ''}`}>
-              <H3> {player} </H3>
-              {
-                sortedExcutions.indexOf(player) >=0 && <h4> Episode {playerIndex +1} </h4>
-              }
-            </div>
-            <div className='execution-overlay'></div>
-          </div>
+        <div className={`overlay-info ${sortedExcutions.indexOf(player) >= 0 ? 'executed' : ''}`}>
+          <H3> {player} </H3>
+          {
+            sortedExcutions.indexOf(player) >=0 && <h4> Episode {playerIndex +1} </h4>
+          }
+        </div>
+        <div className='execution-overlay'></div>
       </div>)
-      }
-    </SwipeableViews>
+    }
   </CardContainer>
 }

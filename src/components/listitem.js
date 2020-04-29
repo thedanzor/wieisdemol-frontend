@@ -8,6 +8,7 @@ import ResolveAvatar from '../core/helpers/resolve-avatar'
 
 const BetWrapper = styled.div`
   width: 100%;
+  text-align: left;
   padding: 22px 12px;
   margin-bottom: 22px;
   border-bottom:  1px solid rgba(255,255,255,0.1);
@@ -42,17 +43,13 @@ const BetWrapper = styled.div`
     }
 
     .player-bets {
-      width: calc(100% - 130px);
+      width: 100%;
       text-align: right;
-      overflow: hidden;
-      
-      > div {
-        position: relative;
-        top: 10px;
-      }
+      display: block;
+      padding: 10px 0;
 
       div {
-        float: right;
+        display: inline-block;
       }
     }
   }

@@ -4,11 +4,8 @@ import styled from 'styled-components'
 // helpers
 import { get } from '../core/helpers/fetch'
 
-// Logo
-import Logo from '../core/views/assests/logo.png'
-
 // Views
-import { H1, H3 } from '../core/views/typography'
+import { H1 } from '../core/views/typography'
 
 // Childeren
 import BetContainer from './listitem'
@@ -19,21 +16,18 @@ import EleminatedPlayers from './eleminated-players'
 // Data
 // import data from '../mock/list'
 
+const SectionTitle = styled.div`
+  text-transform: uppercase;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  display: block;
+  text-align: left;
+  padding: 12px 22px;
+  margin-bottom: 12px;
+  margin-right: 12px;
+`
+
 const ListWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  text-align: center;
-  overflow: hidden;
-  overflow-y: scroll;
-  padding: 160px 0;
-
-  > div {
-    width: 1200px;
-    max-width: 96%;
-    margin: 0 auto;
-  }
-
   h1 {
     font-size: 35px;
     margin: 0;
@@ -53,34 +47,6 @@ const ListWrapper = styled.div`
 
     span {
       color: #fff;
-    }
-  }
-
-  .logo-wrapper {
-    width: 80px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  }
-
-  button {
-    display: block;
-    width: 650px;
-    font-size: 16px;
-    color: #fff;
-    background: rgba(255,255,255,0.2);
-    font-size: 16px;
-    padding: 22px;
-    text-transform: uppercase;
-    font-weight: 600;
-    border: 0px solid #000;
-    margin: 20px auto;
-    cursor: pointer;
-
-    &:hover, &:focus {
-      background: #066200;
-      color: #fff;
-      outline: 0px solid #fff;
     }
   }
 
@@ -105,13 +71,13 @@ const ListWrapper = styled.div`
   }
 
   .bets-placed {
-    width: 35%;
+    width: 25%;
     display: inline-block;
     vertical-align: top;
   }
 
   .giant-episode-cards {
-    width: 65%;
+    width: 75%;
     display: inline-block;
     vertical-align: top;
   }
@@ -119,12 +85,25 @@ const ListWrapper = styled.div`
   .mainscreen-container {
     padding: 42px 0;
   }
+
+  .author-points {
+    display: inline-block;
+    padding: 8px 24px;
+    font-size: 18px;
+    color: #fff;
+    margin-left: 12px;
+    position: relative;
+    top: -4px;
+    border: 1px solid #066200;
+    border-radius: 80px;
+  }
 `
 
 const ListComponent = ({ auth, general, players, refetchUser }) => {
   const [open, setOpen] = useState(false)
   const [processing, setProcessing] = useState(true)
   const [bets, setBets] = useState([])
+  const currentWeek = bets && bets[0] && bets[0].week
 
   const updateData = async () => {
     setProcessing(true)
@@ -144,9 +123,10 @@ const ListComponent = ({ auth, general, players, refetchUser }) => {
 
   return <ListWrapper>
     <div>
-      <H1> Welcome back <span> {auth.name} </span> </H1>
-      <H3> You currently have <span> {auth.points - auth.spent} </span> points to spend this episode </H3>
-      <img src={Logo} alt='logo' className='logo-wrapper' />
+      <H1>
+        <span> {auth.name} </span>
+        <div className='author-points'> {auth.points} </div>
+      </H1>
 
       <p className='action-element-wraper'> 
         <strong onClick={updateData} className='action-element'> Fetch the latest data </strong> |
@@ -154,7 +134,12 @@ const ListComponent = ({ auth, general, players, refetchUser }) => {
       </p>
 
       <div className='mainscreen-container'>
+        <div className='giant-episode-cards'>
+          <SectionTitle> Current Progress - Week {currentWeek} </SectionTitle>
+          <EleminatedPlayers general={general} />
+        </div>
         <div className='bets-placed'>
+          <SectionTitle> Current Standings </SectionTitle>
           {
             processing
               ? <div className='loader-wrapper'> <Loader /> </div>
@@ -162,9 +147,6 @@ const ListComponent = ({ auth, general, players, refetchUser }) => {
                 ? <BetContainer players={players} betWeek={bets[0]} />
                 : 'No data found'
           }
-        </div>
-        <div className='giant-episode-cards'>
-          <EleminatedPlayers general={general} />
         </div>
       </div>
 
