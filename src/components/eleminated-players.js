@@ -18,7 +18,7 @@ const CardContainer = styled.div`
     height: 250px;
     box-shadow: 0px 22px 22px rgba(000,000,000,0.4);
     position: relative;
-    opacity: 0.7;
+    opacity: 0.85;
     margin: 12px;
 
     .overlay-info {
@@ -28,15 +28,17 @@ const CardContainer = styled.div`
       width: 100%;
       height: 100%;
       background: rgba(000,000,000,0.3);
-      padding: 70px 20px;
+      padding: 205px 20px 0;
       text-align: center;
 
       &.executed {
-        background: rgba(206,18,18,0.5);
+        background: rgba(0,0,0,0.8);
       }
 
       h3 {
-        font-size: 28px;
+        font-size: 22px;
+        padding: 0;
+        margin: 0;
         text-transform: capitalize;
       }
       
@@ -65,17 +67,9 @@ export default ({ general }) => {
 
   React.useEffect(() => {
     const newlysortedExcutions = executions
-    const remainingPlayers = cast.filter(castMember => {
-      return newlysortedExcutions.indexOf(castMember) === -1
-    })
-
-    const tooDisplay = [
-      ...newlysortedExcutions,
-      ...remainingPlayers
-    ]
 
     setsortedExcutions(newlysortedExcutions)
-    setCarasel(tooDisplay)
+    setCarasel(cast)
   }, [cast, executions])
 
   if (!carasel || carasel.length === 0) {
@@ -89,9 +83,6 @@ export default ({ general }) => {
 
         <div className={`overlay-info ${sortedExcutions.indexOf(player) >= 0 ? 'executed' : ''}`}>
           <H3> {player} </H3>
-          {
-            sortedExcutions.indexOf(player) >=0 && <h4> Episode {playerIndex +1} </h4>
-          }
         </div>
         <div className='execution-overlay'></div>
       </div>)

@@ -18,7 +18,15 @@ const MainWrapper = styled.div`
 
   > div {
     position: relative;
-    padding: 160px 0;
+    padding: 160px 0 100px;
+
+    .disclaimer {
+      padding-bottom: 30px;
+      padding-top: 30px;
+      text-align: center;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
 
     > div {
       max-width: 92%;
@@ -46,9 +54,10 @@ const NavigationWrapper = styled.div`
 
     li {
       display: inline-block;
-      padding:  8px 22px;
+      padding:  4px 22px;
       border-right: 1px solid rgba(255,255,255,0.3);
-      font-size: 18px;
+      font-size: 17px;
+      margin: 4px 0;
       
       color: rgba(255,255,255,0.5);
 
@@ -70,25 +79,31 @@ export default (props) => {
   const [activePage, setActivePage] = React.useState('home')
 
   return <MainWrapper>
-    <div><div>
-      <img src={Logo} alt='logo' className='logo-wrapper' />
+    <div>
+      <div>
+        <img src={Logo} alt='logo' className='logo-wrapper' />
 
-      <NavigationWrapper>
-        <ul>
-          <li setActivePage={() => setActivePage('home')} className={`${activePage === 'home' ? 'active' : ''}`}> 
-            Home
-          </li>
-          <li setActivePage={() => setActivePage('points')} className={`${activePage === 'points' ? 'active' : ''}`}>
-            My Points
-          </li>
-          <li setActivePage={() => setActivePage('notes')} className={`${activePage === 'notes' ? 'active' : ''}`}>
-            My Notes
-          </li>
-        </ul>
-      </NavigationWrapper>
-
-      <AccountBar {...props} />
-      <ListView {...props} />
-    </div></div>
+        <NavigationWrapper>
+          <ul>
+            <li setActivePage={() => setActivePage('home')} className={`${activePage === 'home' ? 'active' : ''}`}> 
+              Home
+            </li>
+            <li setActivePage={() => setActivePage('points')} className={`${activePage === 'points' ? 'active' : ''}`}>
+              My Points
+            </li>
+            <li setActivePage={() => setActivePage('notes')} className={`${activePage === 'notes' ? 'active' : ''}`}>
+              My Notes
+            </li>
+          </ul>
+        </NavigationWrapper>
+        <AccountBar {...props} />
+        
+        <ListView {...props} />
+      </div>
+      <div className='disclaimer'>
+        This app is not affiliated or operated by WIE IS DE MOL, AVROTROS or related parties. <br />
+        It is owned and operated by fans for fans.
+      </div>
+    </div>
   </MainWrapper>
 }

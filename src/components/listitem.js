@@ -9,11 +9,16 @@ import ResolveAvatar from '../core/helpers/resolve-avatar'
 const BetWrapper = styled.div`
   width: 100%;
   text-align: left;
-  padding: 22px 12px;
+  padding: 0px 12px 0 0;
   margin-bottom: 22px;
   border-bottom:  1px solid rgba(255,255,255,0.1);
+  padding-bottom: 22px;
 
   .bet-weekly-wrapper {
+    padding: 0 12px 12px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 10px;
+
     > div {
       display: inline-block;
       vetical-align: top;
@@ -29,11 +34,22 @@ const BetWrapper = styled.div`
     }
 
     .player-name {
-      width: 75px;
+      width: 100%;
       text-align: left;
 
        h3 {
          color: #fff !important;
+         font-size: 18px;
+         padding-left: 10px;
+
+         span {
+           font-size: 14px;
+           font-weight: 600;
+           border: 1px solid rgba(255,255,255,0.3);
+           padding: 6px 18px;
+           margin-left: 12px;
+           border-radius: 50px;
+         }
        }
     }
 
@@ -44,9 +60,9 @@ const BetWrapper = styled.div`
 
     .player-bets {
       width: 100%;
-      text-align: right;
+      text-align: left;
       display: block;
-      padding: 10px 0;
+      padding: 0px 0;
 
       div {
         display: inline-block;
@@ -90,12 +106,9 @@ const ListComponent = ({ players, betWeek }) => {
   })
 
   return <BetWrapper>
-    <H3> Episode {week} </H3>
-    
     {
-      weeklyBet.map(mappedPlayer => <div className='bet-weekly-wrapper'>
-        <div className='player-name'> <h3> {mappedPlayer.name} </h3> </div>
-        <div className='player-points'> <h4> {mappedPlayer.points} </h4> </div>
+      weeklyBet.sort((a, b) => b.points - a.points).map(mappedPlayer => <div className='bet-weekly-wrapper'>
+        <div className='player-name'> <h3> {mappedPlayer.name} <span> {mappedPlayer.points} </span> </h3> </div>
         <div className='player-bets'>
           {
             mappedPlayer.noBets
