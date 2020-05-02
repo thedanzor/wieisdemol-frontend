@@ -6,6 +6,7 @@ import Logo from './core/views/assests/logo.png'
 
 // Components
 import ListView from './components/listview'
+import PointsView from './components/pointsview'
 import AccountBar from './components/account-bar'
 
 const MainWrapper = styled.div`
@@ -85,20 +86,24 @@ export default (props) => {
 
         <NavigationWrapper>
           <ul>
-            <li setActivePage={() => setActivePage('home')} className={`${activePage === 'home' ? 'active' : ''}`}> 
+            <li onClick={() => setActivePage('home')} className={`${activePage === 'home' ? 'active' : ''}`}> 
               Home
             </li>
-            <li setActivePage={() => setActivePage('points')} className={`${activePage === 'points' ? 'active' : ''}`}>
-              My Points
+            <li onClick={() => setActivePage('points')} className={`${activePage === 'points' ? 'active' : ''}`}>
+              History
             </li>
-            <li setActivePage={() => setActivePage('notes')} className={`${activePage === 'notes' ? 'active' : ''}`}>
+            <li onClick={() => setActivePage('notes')} className={`${activePage === 'notes' ? 'active' : ''}`}>
               My Notes
             </li>
           </ul>
         </NavigationWrapper>
-        <AccountBar {...props} />
+        <AccountBar {...props} setActivePage={setActivePage} />
         
-        <ListView {...props} />
+        { activePage === 'home' && <ListView {...props} />}
+        { activePage === 'points' && <PointsView {...props} />}
+        { activePage === 'notes' && <> Coming Soon! </>}
+        { activePage === 'account' && <> Coming Soon! </>}
+
       </div>
       <div className='disclaimer'>
         This app is not affiliated or operated by WIE IS DE MOL, AVROTROS or related parties. <br />

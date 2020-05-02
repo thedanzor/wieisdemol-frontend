@@ -80,7 +80,7 @@ const ListComponent = ({ players, betWeek }) => {
       const data = {
         name: player.name,
         bets: [],
-        points: player.points,
+        points: (betWeek.points && betWeek.points[player.name]) || 0,
         noBets: false
       }
       
@@ -99,7 +99,7 @@ const ListComponent = ({ players, betWeek }) => {
       weeklyBet.push({
         name: player.name,
         bets: [],
-        points: player.points,
+        points: (betWeek.points && betWeek.points[player.name]) || 0,
         noBets: true
       })
     }
